@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import Enums.FuegoStatus;
@@ -18,8 +17,8 @@ public class Fuego implements Runnable {
     }
 
     public Fuego(FuegoModel fuegoModel) {
-        this.matrizFuego = new int[255][255];
-        this.pocentageChispa = 5;
+        this.matrizFuego = new int[255][300];
+        this.pocentageChispa = 50;
         this.fuegoModel = fuegoModel;
     }
 
@@ -35,6 +34,7 @@ public class Fuego implements Runnable {
                 // TODO: handle exception
             }
         }
+        
 
     }
 
@@ -43,8 +43,10 @@ public class Fuego implements Runnable {
         Random ran = new Random();
         for (int i = matrizFuego.length - 1; i < matrizFuego.length; i++) {
             for (int j = 0; j < matrizFuego[i].length; j++) {
-                if ((ran.nextInt(10) + 1) <= pocentageChispa) {
+                if ((ran.nextInt(100) + 1) <= pocentageChispa) {
                     this.matrizFuego[i][j] = 255;
+                }else{
+                    this.matrizFuego[i][j] = 0;
                 }
             }
         }
@@ -66,7 +68,7 @@ public class Fuego implements Runnable {
 
                 // La tempratura sedivide en 3 y le quita un porcentaje de refrigeracion.
                 temperatura = (tempAbaIzq + tempAbajo + tempAbaDerecha) / 3;
-                matrizFuego[i][j] = (int) (temperatura * 0.95);
+                matrizFuego[i][j] = (int) (temperatura * 0.99);
             }
         }
     }
@@ -101,22 +103,5 @@ public class Fuego implements Runnable {
         this.fuegoModel = fuegoModel;
     }
 
-    public static void main(String[] args) {
-        Fuego g = new Fuego();
-        g.generarChispa(5);
-        System.out.println(Arrays.deepToString(g.getMatrizFuego()));
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        g.propagar();
-        System.out.println(Arrays.deepToString(g.getMatrizFuego()));
-    }
 
 }

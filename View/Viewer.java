@@ -18,6 +18,7 @@ public class Viewer extends JPanel {
         } catch (Exception e) {
             // TODO: handle exception
         }
+        
     }
 
     // Metodos
@@ -27,6 +28,8 @@ public class Viewer extends JPanel {
         g.drawImage(image, 0, 0, this);
     }
 
+
+
     // Getter y Setter
     public BufferedImage getImage() {
         return image;
@@ -34,6 +37,9 @@ public class Viewer extends JPanel {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    public void add(BufferedImage bufferedImage) {
     }
 
 }

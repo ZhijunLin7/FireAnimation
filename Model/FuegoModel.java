@@ -1,52 +1,61 @@
 package Model;
 
+import Controller.FuegoController;
 import Enums.FuegoStatus;
 
 public class FuegoModel {
 
     // Atributos
-    private FuegoStatus status = FuegoStatus.stopped;
+    private FuegoStatus status = FuegoStatus.running;
     private Fuego fuego;
     private PaletaColor paletaColor;
+    private FuegoController fuegoController;
 
     // Constructor
-    public FuegoModel() {
+    public FuegoModel(FuegoController fuegoController) {
         this.fuego = new Fuego(this);
         this.paletaColor = new PaletaColor();
         this.paletaColor.rellenarPaleta();
-    }
-
-    public FuegoModel(FuegoStatus status, Fuego fuego) {
-        this.status = status;
-        this.fuego = fuego;
+        this.fuegoController = fuegoController;
+        Thread t = new Thread(this.fuego);
+        t.start();
     }
 
     // Metodos
-    private void start() {
-
+    public void start() {
+        this.status = FuegoStatus.running;
     }
 
     public void stop() {
-
+        this.status = FuegoStatus.stopped;
     }
 
     public void play() {
-
+        this.status = FuegoStatus.running;
+        notifyAll();
     }
 
     public void pause() {
-
+        this.status = FuegoStatus.paused;
     }
 
     public synchronized FuegoStatus getStatus() {
+        if (this.status.equals(FuegoStatus.paused)) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("Thread Interrupted");
+            }
+        }
         return status;
     }
 
     public synchronized void setStatus(FuegoStatus status) {
         this.status = status;
     }
-    // Getter y Setter
 
+    // Getter y Setter
     public Fuego getFuego() {
         return fuego;
     }
@@ -61,6 +70,14 @@ public class FuegoModel {
 
     public void setPaletaColor(PaletaColor paletaColor) {
         this.paletaColor = paletaColor;
+    }
+
+    public FuegoController getFuegoController() {
+        return fuegoController;
+    }
+
+    public void setFuegoController(FuegoController fuegoController) {
+        this.fuegoController = fuegoController;
     }
 
 }
