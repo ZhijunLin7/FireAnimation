@@ -11,8 +11,9 @@ public class FuegoModel {
 
     // Constructor
     public FuegoModel() {
-        this.fuego= new Fuego();
+        this.fuego = new Fuego(this);
         this.paletaColor = new PaletaColor();
+        this.paletaColor.rellenarPaleta();
     }
 
     public FuegoModel(FuegoStatus status, Fuego fuego) {
@@ -37,15 +38,14 @@ public class FuegoModel {
 
     }
 
-    public FuegoStatus getStatus() {
+    public synchronized FuegoStatus getStatus() {
         return status;
     }
 
-    // Getter y Setter
-
-    public void setStatus(FuegoStatus status) {
+    public synchronized void setStatus(FuegoStatus status) {
         this.status = status;
     }
+    // Getter y Setter
 
     public Fuego getFuego() {
         return fuego;

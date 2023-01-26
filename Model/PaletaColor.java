@@ -9,12 +9,14 @@ public class PaletaColor {
 
     // Constructor
     public PaletaColor() {
-        this.colores = new Color[255];
+        this.colores = new Color[256];
     }
 
     // Metodos
     public void rellenarPaleta() {
-
+        for (int i = 0; i < colores.length; i++) {
+            colores[i]=new Color(i,0,0,i);
+        }
     }
 
     // Getter y Setter

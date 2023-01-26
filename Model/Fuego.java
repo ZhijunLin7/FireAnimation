@@ -3,27 +3,38 @@ package Model;
 import java.util.Arrays;
 import java.util.Random;
 
+import Enums.FuegoStatus;
+
 public class Fuego implements Runnable {
 
     // Atributos
     private int[][] matrizFuego;
     private int pocentageChispa;
+    private FuegoModel fuegoModel;
 
     // Constructor
     public Fuego() {
-        this.matrizFuego = new int[10][10];
-        this.pocentageChispa = 5;
+
     }
 
-    public Fuego(int[][] matrizFuego, int pocentageChispa) {
-        this.matrizFuego = matrizFuego;
-        this.pocentageChispa = pocentageChispa;
+    public Fuego(FuegoModel fuegoModel) {
+        this.matrizFuego = new int[255][255];
+        this.pocentageChispa = 5;
+        this.fuegoModel = fuegoModel;
     }
 
     // Metodos
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+        while (this.fuegoModel.getStatus() != FuegoStatus.stopped) {
+            try {
+                this.generarChispa(pocentageChispa);
+                this.propagar();
+                Thread.sleep(50);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
 
     }
 
@@ -80,6 +91,14 @@ public class Fuego implements Runnable {
 
     public void setPocentageChispa(int pocentageChispa) {
         this.pocentageChispa = pocentageChispa;
+    }
+
+    public FuegoModel getFuegoModel() {
+        return fuegoModel;
+    }
+
+    public void setFuegoModel(FuegoModel fuegoModel) {
+        this.fuegoModel = fuegoModel;
     }
 
     public static void main(String[] args) {
