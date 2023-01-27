@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import Enums.FuegoStatus;
@@ -17,8 +18,8 @@ public class Fuego implements Runnable {
     }
 
     public Fuego(FuegoModel fuegoModel) {
-        this.matrizFuego = new int[255][300];
-        this.pocentageChispa = 50;
+        this.matrizFuego = new int[300][300];
+        this.pocentageChispa = 1;
         this.fuegoModel = fuegoModel;
     }
 
@@ -34,20 +35,18 @@ public class Fuego implements Runnable {
                 // TODO: handle exception
             }
         }
-        
 
     }
 
     // Genera Chispa en el base de array.
     public void generarChispa(int pocentageChispa) {
         Random ran = new Random();
-        for (int i = matrizFuego.length - 1; i < matrizFuego.length; i++) {
-            for (int j = 0; j < matrizFuego[i].length; j++) {
-                if ((ran.nextInt(100) + 1) <= pocentageChispa) {
-                    this.matrizFuego[i][j] = 255;
-                }else{
-                    this.matrizFuego[i][j] = 0;
-                }
+        for (int j = 0; j < matrizFuego[matrizFuego.length-1].length; j++) {
+            int numRan = ran.nextInt(100) + 1;
+            if (numRan <= pocentageChispa) {
+                this.matrizFuego[matrizFuego.length-1][j] = 255;
+            } else {
+                this.matrizFuego[matrizFuego.length-1][j] = 0;
             }
         }
     }
@@ -102,6 +101,5 @@ public class Fuego implements Runnable {
     public void setFuegoModel(FuegoModel fuegoModel) {
         this.fuegoModel = fuegoModel;
     }
-
 
 }

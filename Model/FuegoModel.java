@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Color;
+
 import Controller.FuegoController;
 import Enums.FuegoStatus;
 
@@ -15,7 +17,8 @@ public class FuegoModel {
     public FuegoModel(FuegoController fuegoController) {
         this.fuego = new Fuego(this);
         this.paletaColor = new PaletaColor();
-        this.paletaColor.rellenarPaleta();
+        this.paletaColor.getColores()[0]=new Color(0,0,0,0);
+        this.paletaColor.rellenarPaleta(1,255,new Color(255,255,0,1),new Color(255,0,0,255));
         this.fuegoController = fuegoController;
         Thread t = new Thread(this.fuego);
         t.start();

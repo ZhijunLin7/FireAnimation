@@ -6,6 +6,7 @@ import Controller.FuegoController;
 import Enums.FuegoStatus;
 import Model.Fuego;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
@@ -65,13 +66,14 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
         while (this.fuegoController.getFuegoModel().getStatus() != FuegoStatus.stopped) {
             try {
                 this.pintar(bufferedImage);
-                viewer.getImage().getGraphics().drawImage(bufferedImage, 0,0,null);
+                viewer.getImage().getGraphics().drawImage(bufferedImage, 0, 0, null);
                 this.repaint();
-                Thread.sleep(25);
+                Thread.sleep(50);
             } catch (Exception e) {
                 // TODO: handle exception
             }
         }
+
     }
 
     @Override
@@ -100,7 +102,6 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
                 bufferedImage.setRGB(j, i, color);
             }
         }
-
     }
 
     // Getter y Setter
