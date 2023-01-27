@@ -15,7 +15,7 @@ public class PaletaColor {
     // Metodos
     public void rellenarPaleta() {
         for (int i = 0; i < colores.length; i++) {
-            colores[i]=new Color(i,0,0,i);
+            colores[i]=new Color(255,i,0,i);
         }
     }
 

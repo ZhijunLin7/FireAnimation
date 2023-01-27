@@ -1,9 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class MyFrame extends JFrame {
-    public MyFrame() {
-        super("My Frame");
+public class MyFrame2 extends JFrame {
+    public MyFrame2() {
+        super("My Frame2");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set the layout manager to GridBagLayout
@@ -11,12 +11,7 @@ public class MyFrame extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
 
         // Create the panel with buttons
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 2));
-        buttonPanel.add(new JButton("Button 1"));
-        buttonPanel.add(new JButton("Button 2"));
-        buttonPanel.add(new JButton("Button 3"));
-        buttonPanel.add(new JButton("Button 4"));
+        JPanel buttonPanel = new ButtonPanel();
 
         // Add the button panel to the top-left corner of the grid
         constraints.gridx = 0;
@@ -28,10 +23,7 @@ public class MyFrame extends JFrame {
         add(buttonPanel, constraints);
 
         // Create the panel with the picture
-        JPanel picturePanel = new JPanel();
-        ImageIcon image = new ImageIcon("View\\bg.jpg");
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        picturePanel.add(label);
+        JPanel picturePanel = new PicturePanel();
 
         // Add the picture panel to the top-right corner of the grid
         constraints.gridx = 1;
@@ -41,13 +33,31 @@ public class MyFrame extends JFrame {
         constraints.weightx = 0.5;
         constraints.weighty = 0.5;
         add(picturePanel, constraints);
-        
+
         // Pack and display the frame
         pack();
         setVisible(true);
     }
 
     public static void main(String[] args) {
-        new MyFrame();
+        new MyFrame2();
+    }
+}
+
+class PicturePanel extends JPanel {
+    public PicturePanel() {
+        ImageIcon image = new ImageIcon("View\\bg.jpg");
+        JLabel label = new JLabel("", image, JLabel.CENTER);
+        add(label);
+    }
+}
+
+class ButtonPanel extends JPanel {
+    public ButtonPanel() {
+        setLayout(new GridLayout(2, 2));
+        add(new JButton("Button 1"));
+        add(new JButton("Button 2"));
+        add(new JButton("Button 3"));
+        add(new JButton("Button 4"));
     }
 }
