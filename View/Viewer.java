@@ -10,9 +10,9 @@ public class Viewer extends JPanel {
 
     // Atributos
     private BufferedImage image;
-
+    private BufferedImage fuegoImage;
     // Constructor
-    public Viewer(BufferedImage image) {
+    public Viewer() {
         try {
             this.image = ImageIO.read(new File("View\\bg.jpg"));
         } catch (Exception e) {
@@ -26,8 +26,9 @@ public class Viewer extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
+        g.drawImage(fuegoImage, 0, 0, 400, 400, 0, 0, fuegoImage.getWidth(),
+        fuegoImage.getHeight(), null);
     }
-
 
 
     // Getter y Setter
@@ -41,5 +42,14 @@ public class Viewer extends JPanel {
 
     public void add(BufferedImage bufferedImage) {
     }
+
+    public BufferedImage getFuegoImage() {
+        return fuegoImage;
+    }
+
+    public void setFuegoImage(BufferedImage fuegoImage) {
+        this.fuegoImage = fuegoImage;
+    }
+    
 
 }

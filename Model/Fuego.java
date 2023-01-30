@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import Enums.FuegoStatus;
@@ -18,8 +17,8 @@ public class Fuego implements Runnable {
     }
 
     public Fuego(FuegoModel fuegoModel) {
-        this.matrizFuego = new int[300][300];
-        this.pocentageChispa = 1;
+        this.matrizFuego = new int[200][200];
+        this.pocentageChispa = 50;
         this.fuegoModel = fuegoModel;
     }
 

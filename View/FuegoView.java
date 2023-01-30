@@ -6,13 +6,13 @@ import Controller.FuegoController;
 import Enums.FuegoStatus;
 import Model.Fuego;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+
 import java.awt.GridBagConstraints;
 
 public class FuegoView extends JFrame implements Runnable, ActionListener {
@@ -26,7 +26,7 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
     public FuegoView(FuegoController fuegoController) {
         this.fuegoController = fuegoController;
         this.controlPanel = new ControlPanel();
-        this.viewer = new Viewer(null);
+        this.viewer = new Viewer();
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -66,7 +66,7 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
         while (this.fuegoController.getFuegoModel().getStatus() != FuegoStatus.stopped) {
             try {
                 this.pintar(bufferedImage);
-                viewer.getImage().getGraphics().drawImage(bufferedImage, 0, 0, null);
+                viewer.setFuegoImage(bufferedImage);
                 this.repaint();
                 Thread.sleep(50);
             } catch (Exception e) {
