@@ -83,11 +83,11 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
                 System.out.println("Play");
                 this.fuegoController.play();
                 break;
-            case "Stop":
-                System.out.println("Stop");
-                break;
             case "Pause":
                 System.out.println("Pause");
+                break;
+            case "Stop":
+                System.out.println("Stop");
                 break;
         }
     }

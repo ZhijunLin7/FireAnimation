@@ -5,12 +5,15 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.awt.image.BufferStrategy;
 
 public class Viewer extends JPanel {
 
     // Atributos
     private BufferedImage image;
     private BufferedImage fuegoImage;
+    private BufferStrategy bf;
+    
     // Constructor
     public Viewer() {
         try {
@@ -26,8 +29,7 @@ public class Viewer extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, this);
-        g.drawImage(fuegoImage, 0, 0, 400, 400, 0, 0, fuegoImage.getWidth(),
-        fuegoImage.getHeight(), null);
+        g.drawImage(fuegoImage, 279, 406, this);
     }
 
 

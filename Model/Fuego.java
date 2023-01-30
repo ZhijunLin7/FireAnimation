@@ -17,7 +17,7 @@ public class Fuego implements Runnable {
     }
 
     public Fuego(FuegoModel fuegoModel) {
-        this.matrizFuego = new int[200][200];
+        this.matrizFuego = new int[105][270];
         this.pocentageChispa = 50;
         this.fuegoModel = fuegoModel;
     }
@@ -66,7 +66,7 @@ public class Fuego implements Runnable {
 
                 // La tempratura sedivide en 3 y le quita un porcentaje de refrigeracion.
                 temperatura = (tempAbaIzq + tempAbajo + tempAbaDerecha) / 3;
-                matrizFuego[i][j] = (int) (temperatura * 0.99);
+                matrizFuego[i][j] = (int) (temperatura * 0.95);
             }
         }
     }
