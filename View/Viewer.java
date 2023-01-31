@@ -5,14 +5,15 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
+import java.awt.image.BufferStrategy;
 
 public class Viewer extends JPanel {
 
     // Atributos
     private BufferedImage image;
     private BufferedImage fuegoImage;
-
+    private BufferStrategy bf;
+    
     // Constructor
     public Viewer() {
         try {
@@ -20,7 +21,7 @@ public class Viewer extends JPanel {
         } catch (Exception e) {
             // TODO: handle exception
         }
-
+        
     }
 
     // Metodos
@@ -30,6 +31,7 @@ public class Viewer extends JPanel {
         g.drawImage(image, 0, 0, this);
         g.drawImage(fuegoImage, 279, 406, this);
     }
+
 
     // Getter y Setter
     public BufferedImage getImage() {
@@ -50,5 +52,6 @@ public class Viewer extends JPanel {
     public void setFuegoImage(BufferedImage fuegoImage) {
         this.fuegoImage = fuegoImage;
     }
+    
 
 }

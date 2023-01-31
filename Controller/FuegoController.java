@@ -1,6 +1,5 @@
 package Controller;
 
-
 import Model.FuegoModel;
 import View.FuegoView;
 

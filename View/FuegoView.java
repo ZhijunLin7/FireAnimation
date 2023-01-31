@@ -9,7 +9,6 @@ import javax.swing.event.ChangeListener;
 import Controller.FuegoController;
 import Enums.FuegoStatus;
 import Model.Fuego;
-import Model.FuegoModel;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferStrategy;
@@ -67,7 +66,6 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
         this.pack();
         this.setVisible(true);
 
-        this.comenzar();
     }
 
     // Metodos
@@ -160,6 +158,7 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
         perCentChispa.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                // TODO Auto-generated method stub
                 int chispa = (int) perCentChispa.getValue();
                 fuegoController.getFuegoModel().getFuego().setPocentageChispa(chispa);
             }

@@ -21,8 +21,6 @@ public class FuegoModel {
         this.paletaColor.rellenarPaleta(1, 30, new Color(128, 128, 128, 150), new Color(115, 75, 0, 255));
         this.paletaColor.rellenarPaleta(31, 255, new Color(255, 255, 0, 255), new Color(255, 0, 0, 255));
         this.fuegoController = fuegoController;
-        // Comenzar calcular el fuego
-        this.start();
     }
 
     // Metodos
@@ -48,7 +46,9 @@ public class FuegoModel {
     }
 
     public synchronized void pause() {
-        this.status = FuegoStatus.paused;
+        if (this.status.equals(FuegoStatus.running)) {
+            this.status = FuegoStatus.paused;
+        }
     }
 
     public synchronized FuegoStatus getStatus() {

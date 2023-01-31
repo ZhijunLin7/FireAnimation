@@ -40,12 +40,12 @@ public class Fuego implements Runnable {
     // Genera Chispa en el base de array.
     public void generarChispa(int pocentageChispa) {
         Random ran = new Random();
-        for (int j = 0; j < matrizFuego[matrizFuego.length-1].length; j++) {
+        for (int j = 0; j < matrizFuego[matrizFuego.length - 1].length; j++) {
             int numRan = ran.nextInt(100) + 1;
             if (numRan <= pocentageChispa) {
-                this.matrizFuego[matrizFuego.length-1][j] = 255;
+                this.matrizFuego[matrizFuego.length - 1][j] = 255;
             } else {
-                this.matrizFuego[matrizFuego.length-1][j] = 0;
+                this.matrizFuego[matrizFuego.length - 1][j] = 0;
             }
         }
     }
@@ -57,15 +57,17 @@ public class Fuego implements Runnable {
                 int temperatura = 0;
                 int tempAbaIzq = 0;
                 int tempAbajo = 0;
+                int tempAbajo2 = 0;
                 int tempAbaDerecha = 0;
 
                 // Calcular la tempreatura basando en los de abajo, izquierda, derecha.
                 tempAbaIzq = matrizFuego[i + 1][positiveMod(j - 1, matrizFuego.length)];
                 tempAbajo = matrizFuego[i + 1][j];
+                tempAbajo2 = matrizFuego[positiveMod(i + 2, matrizFuego.length)][j];
                 tempAbaDerecha = matrizFuego[i + 1][positiveMod(j + 1, matrizFuego.length)];
 
                 // La tempratura sedivide en 3 y le quita un porcentaje de refrigeracion.
-                temperatura = (tempAbaIzq + tempAbajo + tempAbaDerecha) / 3;
+                temperatura = (int) ((int) (tempAbaIzq + tempAbajo + tempAbajo2 + tempAbaDerecha) / 4);
                 matrizFuego[i][j] = (int) (temperatura * 0.95);
             }
         }
@@ -85,11 +87,11 @@ public class Fuego implements Runnable {
         this.matrizFuego = matrizFuego;
     }
 
-    public int getPocentageChispa() {
+    public synchronized int getPocentageChispa() {
         return pocentageChispa;
     }
 
-    public void setPocentageChispa(int pocentageChispa) {
+    public synchronized void setPocentageChispa(int pocentageChispa) {
         this.pocentageChispa = pocentageChispa;
     }
 
