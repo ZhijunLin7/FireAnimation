@@ -15,32 +15,39 @@ public class FuegoModel {
 
     // Constructor
     public FuegoModel(FuegoController fuegoController) {
-        this.status = FuegoStatus.running;
-        this.fuego = new Fuego(this);
+        this.status = FuegoStatus.stopped;
         this.paletaColor = new PaletaColor();
         this.paletaColor.getColores()[0] = new Color(0, 0, 0, 0);
-        this.paletaColor.rellenarPaleta(1, 30, new Color(128,128,128, 150), new Color(115, 75, 0, 255));
+        this.paletaColor.rellenarPaleta(1, 30, new Color(128, 128, 128, 150), new Color(115, 75, 0, 255));
         this.paletaColor.rellenarPaleta(31, 255, new Color(255, 255, 0, 255), new Color(255, 0, 0, 255));
         this.fuegoController = fuegoController;
+        // Comenzar calcular el fuego
+        this.start();
+    }
+
+    // Metodos
+    private void start() {
+        this.status = FuegoStatus.running;
+        this.fuego = new Fuego(this);
         Thread t = new Thread(this.fuego);
         t.start();
     }
 
-    // Metodos
-    public void start() {
-        this.status = FuegoStatus.running;
+    public synchronized void play() {
+        if (this.status.equals(FuegoStatus.paused)) {
+            this.status = FuegoStatus.running;
+            notifyAll();
+        } else if (this.status.equals(FuegoStatus.stopped)) {
+            this.start();
+            this.fuegoController.getFuegoView().comenzar();
+        }
     }
 
-    public void stop() {
+    public synchronized void stop() {
         this.status = FuegoStatus.stopped;
     }
 
-    public void play() {
-        this.status = FuegoStatus.running;
-        notifyAll();
-    }
-
-    public void pause() {
+    public synchronized void pause() {
         this.status = FuegoStatus.paused;
     }
 

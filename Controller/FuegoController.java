@@ -1,7 +1,6 @@
 package Controller;
 
-import Enums.FuegoStatus;
-import Model.Fuego;
+
 import Model.FuegoModel;
 import View.FuegoView;
 
@@ -24,9 +23,6 @@ public class FuegoController {
     // Metodos
     public void play() {
         fuegoModel.play();
-        if (fuegoModel.getStatus().equals(FuegoStatus.stopped)) {
-            fuegoModel.setFuego(new Fuego());
-        }
     }
 
     public void pause() {

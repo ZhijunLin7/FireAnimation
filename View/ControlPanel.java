@@ -2,7 +2,7 @@ package View;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -10,15 +10,13 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import java.awt.GridBagLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 
 public class ControlPanel extends JPanel {
 
     // Atributos
-    private JButton play, stop, pause, setcolor;
+    private JButton play, stop, pause, setcolor, colorInicial, colorFinal;
     private JSpinner perCentChispa, temIni, tempFinal;
-    private JColorChooser colorInicial, colorFinal;
 
     // Constructor
     public ControlPanel() {
@@ -30,6 +28,8 @@ public class ControlPanel extends JPanel {
         this.stop = new JButton("Stop");
         this.pause = new JButton("Pause");
         this.setcolor = new JButton("Setcolor");
+        this.colorInicial = new JButton("Color Inicial");
+        this.colorFinal = new JButton("Color Final");
 
         // Crear lo spinners
         SpinnerModel value = new SpinnerNumberModel(50, 1, 100, 1);
@@ -58,6 +58,16 @@ public class ControlPanel extends JPanel {
         constraints.gridy = 1;
         this.add(this.setcolor, constraints);
 
+        // Añadir los botones que tiene el elegidor de color al panel total
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        this.add(this.colorInicial, constraints);
+
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        this.add(this.colorFinal, constraints);
+
         // Añadir los spinner al panel
         /*
          * Aqui creo un panel y meto el descripcion y el jspinner al final meto el panel
@@ -71,7 +81,7 @@ public class ControlPanel extends JPanel {
         pTempInicial.add(this.temIni);
 
         constraints.gridx = 0;
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         this.add(pTempInicial, constraints);
 
         JPanel pTempFinal = new JPanel();
@@ -81,7 +91,7 @@ public class ControlPanel extends JPanel {
         pTempFinal.add(this.tempFinal);
 
         constraints.gridx = 1;
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         this.add(pTempFinal, constraints);
 
         JPanel pChispa = new JPanel();
@@ -93,8 +103,6 @@ public class ControlPanel extends JPanel {
         constraints.gridx = 2;
         constraints.gridy = 2;
         this.add(pChispa, constraints);
-
-        // Añadir el elegidor de color al panel total
 
     }
 
@@ -108,4 +116,70 @@ public class ControlPanel extends JPanel {
     public void setPlay(JButton play) {
         this.play = play;
     }
+
+    public JButton getStop() {
+        return stop;
+    }
+
+    public void setStop(JButton stop) {
+        this.stop = stop;
+    }
+
+    public JButton getPause() {
+        return pause;
+    }
+
+    public void setPause(JButton pause) {
+        this.pause = pause;
+    }
+
+    public JButton getSetcolor() {
+        return setcolor;
+    }
+
+    public void setSetcolor(JButton setcolor) {
+        this.setcolor = setcolor;
+    }
+
+    public JButton getColorInicial() {
+        return colorInicial;
+    }
+
+    public void setColorInicial(JButton colorInicial) {
+        this.colorInicial = colorInicial;
+    }
+
+    public JButton getColorFinal() {
+        return colorFinal;
+    }
+
+    public void setColorFinal(JButton colorFinal) {
+        this.colorFinal = colorFinal;
+    }
+
+    public JSpinner getPerCentChispa() {
+        return perCentChispa;
+    }
+
+    public void setPerCentChispa(JSpinner perCentChispa) {
+        this.perCentChispa = perCentChispa;
+    }
+
+    public JSpinner getTemIni() {
+        return temIni;
+    }
+
+    public void setTemIni(JSpinner temIni) {
+        this.temIni = temIni;
+    }
+
+    public JSpinner getTempFinal() {
+        return tempFinal;
+    }
+
+    public void setTempFinal(JSpinner tempFinal) {
+        this.tempFinal = tempFinal;
+    }
+
+    
 }

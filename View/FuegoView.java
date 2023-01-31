@@ -1,12 +1,18 @@
 package View;
 
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
+import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Controller.FuegoController;
 import Enums.FuegoStatus;
 import Model.Fuego;
-import java.awt.image.BufferedImage;
+import Model.FuegoModel;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferStrategy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
@@ -31,63 +37,94 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
         this.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
+        // Añadir el control panel al frame
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.BOTH;
-        constraints.weightx = 0.5;
-        constraints.weighty = 0.5;
+        constraints.weightx = 0.2;
+        constraints.weighty = 0.2;
         this.add(controlPanel, constraints);
 
+        // Añadir el viewer panel al frame
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         constraints.fill = GridBagConstraints.BOTH;
-        constraints.weightx = 0.5;
-        constraints.weighty = 0.5;
+        constraints.weightx = 0.8;
+        constraints.weighty = 0.8;
         this.add(viewer, constraints);
 
-        this.controlPanel.getPlay().addActionListener(this);
+        /*
+         * El metodo que sirve para anadir listener a
+         * todo los componentes de control panel
+         */
+        this.anadirListener();
 
-        this.setPreferredSize(new Dimension(1480, 650));
+        this.setPreferredSize(new Dimension(1100, 650));
         this.setTitle("Fuego");
         this.setDefaultCloseOperation(3);
         this.pack();
         this.setVisible(true);
 
-        Thread t = new Thread(this);
-        t.start();
+        this.comenzar();
     }
 
     // Metodos
     @Override
     public void run() {
         BufferedImage bufferedImage = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB);
+        this.createBufferStrategy(2);
+        BufferStrategy bs = this.getBufferStrategy();
         while (this.fuegoController.getFuegoModel().getStatus() != FuegoStatus.stopped) {
             try {
                 this.pintar(bufferedImage);
                 viewer.setFuegoImage(bufferedImage);
-                this.repaint();
+                paintComponents(bs.getDrawGraphics());
+                bs.show();
                 Thread.sleep(50);
             } catch (Exception e) {
                 // TODO: handle exception
             }
         }
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Color c;
         switch (e.getActionCommand()) {
             case "Play":
-                System.out.println("Play");
                 this.fuegoController.play();
                 break;
+
             case "Pause":
-                System.out.println("Pause");
+                this.fuegoController.pause();
                 break;
+
             case "Stop":
-                System.out.println("Stop");
+                this.fuegoController.stop();
+                break;
+
+            case "Setcolor":
+                // Coge el colo de los dos botones y dos tempratura para rellenar paleta de
+                // color
+                String temIni = this.controlPanel.getTemIni().getValue().toString();
+                String temFinal = this.controlPanel.getTempFinal().getValue().toString();
+                Color coloIni = this.controlPanel.getColorInicial().getBackground();
+                Color coloFinal = this.controlPanel.getColorFinal().getBackground();
+                this.fuegoController.getFuegoModel().getPaletaColor().rellenarPaleta(Integer.valueOf(temIni),
+                        Integer.valueOf(temFinal), coloIni, coloFinal);
+
+                break;
+            case "Color Inicial":
+                // Elige el colo y pinta al fondo de boton
+                c = JColorChooser.showDialog(null, "Elige el colo inicial", Color.BLACK);
+                this.controlPanel.getColorInicial().setBackground(c);
+                break;
+
+            case "Color Final":
+                c = JColorChooser.showDialog(null, "Elige el colo inicial", Color.BLACK);
+                this.controlPanel.getColorFinal().setBackground(c);
                 break;
         }
     }
@@ -102,6 +139,32 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
                 bufferedImage.setRGB(j, i, color);
             }
         }
+    }
+
+    public void comenzar() {
+        Thread t = new Thread(this);
+        t.start();
+    }
+
+    public void anadirListener() {
+        // Añadir el listener al botones
+        this.controlPanel.getPlay().addActionListener(this);
+        this.controlPanel.getStop().addActionListener(this);
+        this.controlPanel.getPause().addActionListener(this);
+        this.controlPanel.getSetcolor().addActionListener(this);
+        this.controlPanel.getColorInicial().addActionListener(this);
+        this.controlPanel.getColorFinal().addActionListener(this);
+
+        // Cada vez que cambai el % de chispa lo pconfigura al fuego
+        JSpinner perCentChispa = this.controlPanel.getPerCentChispa();
+        perCentChispa.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int chispa = (int) perCentChispa.getValue();
+                fuegoController.getFuegoModel().getFuego().setPocentageChispa(chispa);
+            }
+
+        });
     }
 
     // Getter y Setter
