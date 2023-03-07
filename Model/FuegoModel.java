@@ -18,8 +18,8 @@ public class FuegoModel {
         this.status = FuegoStatus.stopped;
         this.paletaColor = new PaletaColor();
         this.paletaColor.getColores()[0] = new Color(0, 0, 0, 0);
-        this.paletaColor.rellenarPaleta(1, 30, new Color(128, 128, 128, 150), new Color(115, 75, 0, 255));
-        this.paletaColor.rellenarPaleta(31, 255, new Color(255, 255, 0, 255), new Color(255, 0, 0, 255));
+        this.paletaColor.anadirColor(1, 30, new Color(128, 128, 128, 10), new Color(115, 75, 0, 255));
+        this.paletaColor.anadirColor(31, 255, new Color(255, 255, 0, 255), new Color(255, 0, 0, 255));
         this.fuegoController = fuegoController;
     }
 

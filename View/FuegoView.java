@@ -110,7 +110,7 @@ public class FuegoView extends JFrame implements Runnable, ActionListener {
                 String temFinal = this.controlPanel.getTempFinal().getValue().toString();
                 Color coloIni = this.controlPanel.getColorInicial().getBackground();
                 Color coloFinal = this.controlPanel.getColorFinal().getBackground();
-                this.fuegoController.getFuegoModel().getPaletaColor().rellenarPaleta(Integer.valueOf(temIni),
+                this.fuegoController.getFuegoModel().getPaletaColor().anadirNuevoColor(Integer.valueOf(temIni),
                         Integer.valueOf(temFinal), coloIni, coloFinal);
 
                 break;
